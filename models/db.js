@@ -92,7 +92,7 @@ function updateTask(data, id, cb){
             task.task_name = data;
 
             // Create a request to update
-            const updateRequest = objectStore.update(task);
+            const updateRequest = objectStore.put(task);
 
             updateRequest.onsuccess = () => {
                 cb(null, 'Updated task');

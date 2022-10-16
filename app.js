@@ -12,14 +12,14 @@ function showRecords(){
                 result.forEach((value, index) => {
                     rows += `
                         <div class="app-item px-4 pb-2">
-                                <div class="d-flex flex-row align-items-center border border-light text-white rounded-3">
+                                <div class="d-flex flex-row align-items-center border border-light text-white rounded-3 que" data-id='${value.id}'>
                                     <div class="item">
                                         <i class="fas fa-clipboard-check"></i>
                                     </div>
                                     <div>
-                                        <input type="email" class="app form-control text-white" id="taskname" value="${value.task_name}" readonly>
+                                        <input type="email" class="app form-control text-white" id="taskname" data-id='${value.id}' value="${value.task_name}" readonly>
                                     </div>
-                                    <div class="item text-success" id="btnUpdate" data-id='${value.id}'>
+                                    <div class="item text-success" id="btnEdit" data-id='${value.id}' data-state='0'>
                                         <i class="fas fa-edit icon"></i>
                                     </div>
                                     <div class="item text-danger" id="btnDelete" data-id='${value.id}'>
@@ -76,9 +76,10 @@ $(document).on('click', '#btnDelete', function (e) {
 
 });
 
-$(document).on('click', '#btnUpdate', function(e){
+$(document).on('click', '.btnUpdate', function(e){
     var id = $(this).data('id');
-    var data = $('#taskname').val();
+    var selectDom = $(`input[data-id=${id}]`);
+    var data = selectDom.val();
     updateTask(data, id, (err, result) => {
         if(err){
             toastr.error(err);
@@ -87,4 +88,17 @@ $(document).on('click', '#btnUpdate', function(e){
             showRecords();
         }
     });
+});
+
+$(document).on('click', '#btnEdit', function(e){
+    var id = $(this).data('id');
+    var selectDom = $(`input[data-id=${id}]`);
+    var que = $(`.que[data-id=${id}]`);
+    selectDom. attr('readonly', false);
+    que.removeClass('border-light');
+    que.addClass('border-warning');
+    $(this).empty();
+    $(this).html('<i class="fas fa-save text-info icon"></i>');
+    $(this).addClass('btnUpdate');
+    selectDom.focus();
 });
