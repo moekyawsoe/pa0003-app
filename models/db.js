@@ -78,7 +78,6 @@ function readAll(cb) {
     });
 }
 
-
 function updateTask(data, id, cb){
     connectDB((db)=>{
         var objectStore = db.transaction([storeName], "readwrite")

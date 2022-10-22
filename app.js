@@ -29,7 +29,7 @@ function showRecords(){
                         </div>
                     `;
                     });
-                    $('.app-body').html(rows);
+                $('.app-body').html(rows);
             }
             
         }
@@ -91,14 +91,20 @@ $(document).on('click', '.btnUpdate', function(e){
 });
 
 $(document).on('click', '#btnEdit', function(e){
+
     var id = $(this).data('id');
     var selectDom = $(`input[data-id=${id}]`);
     var que = $(`.que[data-id=${id}]`);
+
     selectDom. attr('readonly', false);
     que.removeClass('border-light');
     que.addClass('border-warning');
-    $(this).empty();
-    $(this).html('<i class="fas fa-save text-info icon"></i>');
-    $(this).addClass('btnUpdate');
     selectDom.focus();
+
+    $(this).empty();
+    $(this).html('<i class="fas fa-save text-white icon"></i>');
+
+
+    $(this).addClass('btnUpdate');
+    
 });
